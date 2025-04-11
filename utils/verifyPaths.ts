@@ -9,10 +9,7 @@ export default class VerifyPath {
     bypass?: RegExp[];
   }[] = [
     { path: "panel", method: ["GET", "POST", "PUT", "DELETE"] },
-    { path: "api/login", method: ["GET", "DELETE", "PUT"] },
-    { path: "api/logout", method: ["GET", "POST", "DELETE", "PUT"] },
-    { path: "api/servicios", method: ["POST", "PUT", "DELETE"] },
-    { path: "api/auth", method: ["GET"] },
+    { path: "prueba", method: ["GET"] },
     /* {
       path: "api/articulos",
       method: ["POST", "DELETE", "PUT"],

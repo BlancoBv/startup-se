@@ -8,13 +8,11 @@ export default defineEventHandler(async (event) => {
   const foundUser = await controller
     .setModel(Usuarios)
     .setWhereFilters({ usuario: body.user })
-    .setAttributes(["password", "id", "usuario", "nombre", "apellidos"])
+    .setAttributes(["password", "id", "usuario"])
     .getModelResult()
     .getOne()
     .then((res) => res.toRawJSON())
     .catch(() => null);
-
-  console.log({ foundUser });
 
   if (!foundUser) {
     setResponseStatus(event, 400);
@@ -35,6 +33,8 @@ export default defineEventHandler(async (event) => {
     const { id } = await lucia.createSession(String(foundUser.id), {});
     const { name, attributes, value } = lucia.createSessionCookie(id);
     setCookie(event, name, value, attributes);
-    return { msg: "Usuario verificado", nombre_completo: "" };
+    return {
+      msg: "Usuario verificado",
+    };
   }
 });

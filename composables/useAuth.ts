@@ -1,47 +1,16 @@
 // composables/useAuth.ts
+import { type User } from "lucia";
 export const useAuth = () => {
-  const userS = useState("user", () => null);
-  const session = useState("session", () => null);
+  const user = useState<User | null>("user", () => null);
+  const isAuthenticated = computed(() => !!user.value);
 
-  const isAuthenticated = computed(() => !!userS.value);
-
-  const login = async ({
-    user,
-    password,
-  }: {
-    user: string;
-    password: string;
-  }) => {
-    await $fetch("/api/login", {
-      body: { user, password },
-      method: "POST",
-    })
-      .then((res) => {
-        userS.value = res;
-        navigateTo("/panel");
+  const logout = async () => {
+    await $fetch("/api/logout", { method: "POST" })
+      .then(async () => {
+        return navigateTo("/login");
       })
-      .catch(() => {});
+      .catch((err) => {});
   };
 
-  const fetchUser = async () => {
-    if (!userS.value) {
-      try {
-        const res = await $fetch("/api/auth");
-        userS.value = res;
-      } catch {
-        userS.value = null;
-        session.value = null;
-      }
-    }
-  };
-
-  // ... login, logout, etc.
-
-  return {
-    user: userS,
-    session,
-    isAuthenticated,
-    login,
-    /*logout, */
-  };
+  return { user, isAuthenticated, logout };
 };

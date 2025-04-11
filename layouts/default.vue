@@ -21,7 +21,7 @@
                 <div class="hidden flex-none lg:block">
                     <ul class="menu menu-horizontal">
                         <li>
-                            <!-- <NuxtLink to="/horarios">Horarios</NuxtLink> -->
+                            <NuxtLink to="/prueba">Prueba</NuxtLink>
                         </li>
                         <li>
                             <NuxtLink to="/login">Iniciar sesión</NuxtLink>
@@ -37,16 +37,9 @@
                 <!-- Sidebar content here -->
                 <li>
                     <!-- <NuxtLink to="/horarios">Horarios</NuxtLink> -->
-                    <NuxtLink to="/login">Iniciar sesión</NuxtLink>
+                    <NuxtLink to="/login">Iniciar sesiónd</NuxtLink>
                 </li>
             </ul>
         </div>
     </div>
 </template>
-<style>
-@reference "~/assets/app.css";
-
-main {
-    @apply p-4;
-}
-</style>

@@ -10,33 +10,17 @@ const { execute, status } = useFetch("/api/login", {
     }
 })
 
-const { login: log } = useAuth()
-
 const login = async () => {
-
-    log(body)
-    // execute()
-    /*   isPending.value = true
-      await $fetch("/api/login", { method: "POST", body })
-          .then(async () => {
-              await navigateTo("/panel")
-          })
-          .catch((err) => { error.value = err })
-          .finally(() => { isPending.value = false })
-  
-   */
-
-
+    execute()
 }
 </script>
 <template>
     <div class="hero bg-base-200 min-h-screen">
         <div class="hero-content flex-col lg:flex-row-reverse">
             <div class="text-center lg:text-left">
-                <h1 class="text-5xl font-bold">Login now!</h1>
+                <h1 class="text-5xl font-bold">Inicio de sesión</h1>
                 <p class="py-6">
-                    Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                    quasi. In deleniti eaque aut repudiandae et a id nisi.
+                    Inicia sesión como administrador para gestionar el mantenimiento.
                 </p>
             </div>
             <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
@@ -50,13 +34,13 @@ const login = async () => {
                     </div>
                     <div class="form-control">
                         <label class="label">
-                            <span class="label-text">Password</span>
+                            <span class="label-text">Contraseña</span>
                         </label>
-                        <input v-model="body.password" type="password" placeholder="password"
+                        <input v-model="body.password" type="password" placeholder="*******"
                             class="input input-bordered" required />
                     </div>
                     <button type="submit" class="btn btn-primary"
-                        :disabled="status === 'pending' || status === 'success'">Login</button>
+                        :disabled="status === 'pending' || status === 'success'">Iniciar sesión</button>
                 </form>
             </div>
         </div>

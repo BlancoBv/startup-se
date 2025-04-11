@@ -1,7 +1,29 @@
-export default defineNuxtRouteMiddleware((to, from) => {
-  const { user } = useAuth();
+import VerifyPath from "~/utils/verifyPaths";
 
-  console.log({ user });
+export default defineNuxtRouteMiddleware(async (to) => {
+  const urlSearch = to.fullPath.match(/\?(.*?)($|#)/)?.[0] ?? "";
 
-  if (import.meta.server) return;
+  const verifyPaths = new VerifyPath(to.path, "GET", urlSearch);
+  const { user, isAuthenticated } = useAuth();
+  const data = await useRequestFetch()("/api/auth").catch(
+    () => (user.value = null)
+  );
+
+  if (data) {
+    user.value = data;
+  }
+
+  if (isAuthenticated.value) {
+    if (to.path === "/login") {
+      return navigateTo("/panel", { replace: true });
+    }
+  } else {
+    if (to.path.match("/panel")) {
+      return navigateTo("/login", { replace: true });
+    }
+    if (verifyPaths.isProtected() && verifyPaths.pathnameType() === "content") {
+      return navigateTo("/404", { replace: true });
+    }
+  }
 });
+verifyPaths;

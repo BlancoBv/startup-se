@@ -1,7 +1,9 @@
 <script setup lang="ts">
 definePageMeta({ layout: "panel" })
 const route = useRoute()
-const { data } = useFetch(`/api/cola-mantenimiento/${route.params.id}`)
+const apiRoute = computed(() => `/api/cola-mantenimiento/${route.params.id}`)
+
+const { data, refresh } = useFetch(`/api/cola-mantenimiento/${route.params.id}`)
 </script>
 <template>
     <main class="flex flex-col prose min-w-full">
@@ -16,7 +18,12 @@ const { data } = useFetch(`/api/cola-mantenimiento/${route.params.id}`)
                     </svg>
                 </div>
                 <div class="stat-title">Nombre del cliente</div>
-                <div class="stat-value">{{ data?.nombreCliente }}</div>
+                <div class="stat-value">
+                    <InputEditable :value="data?.nombreCliente" field="nombreCliente" :api-route="apiRoute"
+                        :refresh-fn="refresh">
+                        {{ data?.nombreCliente }}</InputEditable>
+
+                </div>
                 <div class="stat-desc">Núm. celular: {{ data?.numTel }}</div>
             </div>
 
@@ -58,7 +65,11 @@ const { data } = useFetch(`/api/cola-mantenimiento/${route.params.id}`)
                     </svg>
                 </div>
                 <div class="stat-title">Motivo de ingreso</div>
-                <div class="stat-value">{{ data?.razonEntrada }}</div>
+                <div class="stat-value">
+                    <InputEditable :value="data?.razonEntrada" field="razonEntrada" :api-route="apiRoute"
+                        :refresh-fn="refresh">
+                        {{ data?.nombreCliente }}</InputEditable>
+                </div>
                 <!--                 <div class="stat-desc">↘︎ 90 (14%)</div>
  -->
             </div>

@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
 
   const response = await controller
     .setModel(ColaMantenimiento)
+    .setWhereFilters({ estatus: "en_cola" })
     .setIncludedModels([{ model: Procedimiento, as: "procedimientos" }])
     .getModelResult()
     .getAll()

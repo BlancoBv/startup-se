@@ -1,9 +1,9 @@
 <script setup lang="ts">
 definePageMeta({ layout: "panel" })
-const user = useState("user")
+const route = useRoute()
 </script>
 <template>
     <main>
-        {{ user }}
+        {{ route.params.id }}
     </main>
 </template>

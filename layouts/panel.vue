@@ -34,10 +34,13 @@ const { user, logout } = useAuth()
             <ul class="menu bg-base-200 min-h-full w-80 p-4">
                 <!-- Sidebar content here -->
                 <li>
-                    <NuxtLink to="/panel">Inicio</NuxtLink>
+                    <NuxtLink to="/panel" active-class="menu-active">Inicio</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink to="/panel/cola-mantenimiento">Cola de mantenimiento</NuxtLink>
+                    <NuxtLink to="/panel/cola-mantenimiento" active-class="menu-active">Cola de mantenimiento</NuxtLink>
+                </li>
+                <li>
+                    <NuxtLink to="/panel/registrar-equipo" active-class="menu-active">Registrar equipo</NuxtLink>
                 </li>
                 <li>
                     <button class="btn btn-error" @click="logout">Cerrar sesion</button>

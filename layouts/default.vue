@@ -21,11 +21,17 @@
                 <div class="hidden flex-none lg:block">
                     <ul class="menu menu-horizontal">
                         <li>
-                            <NuxtLink to="/prueba">Prueba</NuxtLink>
+                            <NuxtLink to="/prueba" active-class="menu-active">Prueba</NuxtLink>
                         </li>
                         <li>
-                            <NuxtLink to="/login">Iniciar sesión</NuxtLink>
+                            <NuxtLink to="/estatus-equipo" active-class="menu-active">Estatus de mi equipo
+                            </NuxtLink>
+
                         </li>
+                        <li>
+                            <NuxtLink to="/login" active-class="menu-active">Iniciar sesión</NuxtLink>
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -37,7 +43,8 @@
                 <!-- Sidebar content here -->
                 <li>
                     <!-- <NuxtLink to="/horarios">Horarios</NuxtLink> -->
-                    <NuxtLink to="/login">Iniciar sesiónd</NuxtLink>
+                    <NuxtLink to="/login" active-class="menu-active">Iniciar sesión</NuxtLink>
+                    <NuxtLink to="/estatus-equipo" active-class="menu-active">Consultar estatus de equipo</NuxtLink>
                 </li>
             </ul>
         </div>

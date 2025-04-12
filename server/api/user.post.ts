@@ -1,7 +1,6 @@
 import ControllerBuilder from "../utils/builders/controllerBuilder";
 import { Usuarios } from "~/db/models";
 import z from "zod";
-import { noEmptyOrBlankSpaces } from "../utils/zodValidations";
 
 const userSchema = z.object({
   nombre: z

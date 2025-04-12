@@ -14,6 +14,7 @@ export default class Procedimiento extends Model<
   declare descripcion: string;
   declare idServicio: ForeignKey<number>;
   declare costo: number;
+  declare idMantenimiento: ForeignKey<string>;
   declare createdAt: CreationOptional<string>;
   declare updatedAt: CreationOptional<string>;
 }

@@ -1,23 +1,17 @@
 import { ColaMantenimiento, Procedimiento } from "~/db/models";
-import ControllerBuilder from "../utils/builders/controllerBuilder";
-import { z } from "zod";
-
-const querySchema = z.object({
-  id: z.string().uuid().optional(),
-});
 
 export default defineEventHandler(async (event) => {
-  const controller = new ControllerBuilder();
+  const id = getRouterParam(event, "id");
+  const controller = new controllerBuilder();
 
   const response = await controller
     .setModel(ColaMantenimiento)
+    .setWhereFilters({ id })
     .setIncludedModels([{ model: Procedimiento, as: "procedimientos" }])
     .getModelResult()
-    .getAll()
-    .then((res) => res.toRawArray())
+    .getOne()
+    .then((res) => res.toRawJSON<{ procedimientos: Procedimiento[] }>())
     .catch((err) => {
-      console.log(err);
-
       throw createError({
         data: err,
         statusCode: 400,

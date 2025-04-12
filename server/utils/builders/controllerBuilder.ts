@@ -230,7 +230,7 @@ class InternalModel<T extends SequelizeModel> {
         })[];
   }
   public toRawJSON<
-    K extends { [key: string]: SequelizeModel | SequelizeModel[] }
+    K extends { [key: string]: SequelizeModel | SequelizeModel[] } = {}
   >() {
     const res = this.response as T;
     return res as unknown as InferAttributes<T> & {

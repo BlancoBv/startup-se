@@ -4,6 +4,10 @@ main {
   @apply p-4;
 }
 
+:root{
+  @apply bg-base-200;
+}
+
 th[data-pc-section="headercell"] div {
   display: flex;
   gap: 1rem;

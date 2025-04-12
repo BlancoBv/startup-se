@@ -7,7 +7,7 @@ const { user, logout } = useAuth()
     <div class="drawer lg:drawer-open">
         <input id="drawer" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex flex-col">
-            <div class="navbar bg-base-300 w-full print:hidden">
+            <div class="navbar bg-base-100 w-full print:hidden">
                 <div class="flex-none lg:hidden">
                     <label for="drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -31,7 +31,7 @@ const { user, logout } = useAuth()
         </div>
         <div class="drawer-side">
             <label for="drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-            <ul class="menu bg-base-200 min-h-full w-80 p-4">
+            <ul class="menu bg-base-100 min-h-full w-80 p-4">
                 <!-- Sidebar content here -->
                 <li>
                     <NuxtLink to="/panel" active-class="menu-active">Inicio</NuxtLink>

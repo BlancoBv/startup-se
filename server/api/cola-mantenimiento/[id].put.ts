@@ -62,6 +62,7 @@ export default defineEventHandler(async (event) => {
   const { nombreCliente, razonEntrada } = body.data;
   await controller
     .setModel(ColaMantenimiento)
+    .setWhereFilters({ id })
     .setBody({ nombreCliente, razonEntrada } as any)
     .getModelResult()
     .update()

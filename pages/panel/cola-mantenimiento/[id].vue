@@ -1,9 +1,8 @@
 <script setup lang="ts">
 definePageMeta({ layout: "panel" })
-const route = useRoute()
-const apiRoute = computed(() => `/api/cola-mantenimiento/${route.params.id}`)
-
-const { data, refresh } = useFetch(`/api/cola-mantenimiento/${route.params.id}`)
+const { id } = useRoute().params as unknown as { id: string }
+const apiRoute = computed(() => `/api/cola-mantenimiento/${id}`)
+const { data, refresh } = useFetch(`/api/cola-mantenimiento/${id}`)
 </script>
 <template>
     <main class="flex flex-col prose min-w-full">
@@ -176,6 +175,9 @@ const { data, refresh } = useFetch(`/api/cola-mantenimiento/${route.params.id}`)
 
 
 
-
+        <div>
+            <ButtonMarcarTerminado :id="id" />
+            <ButtonMarcarEntregado :id="id" />
+        </div>
     </main>
 </template>

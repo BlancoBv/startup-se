@@ -13,6 +13,7 @@ export default class VerifyPath {
     { path: "api/logout", method: ["GET", "POST", "DELETE", "PUT"] },
     { path: "api/servicios", method: ["POST", "PUT", "DELETE"] },
     { path: "api/auth", method: ["GET"] },
+    { path: "api/cola-mantenimiento", method: ["GET"] },
     /* {
       path: "api/articulos",
       method: ["POST", "DELETE", "PUT"],

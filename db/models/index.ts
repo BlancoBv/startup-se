@@ -4,7 +4,6 @@ import Usuarios from "./Usuarios";
 import Servicios from "./Servicios";
 import ColaMantenimiento from "./ColaMantenimiento";
 import Procedimiento from "./Procedimientos";
-import MantenimientoProcedimiento from "./MantenimientoProcedimiento";
 import Precios from "./Precios";
 import bcrypt from "bcrypt";
 
@@ -16,14 +15,14 @@ ColaMantenimiento.init(
       allowNull: false,
     },
     nombreCliente: { type: DataTypes.STRING(100), allowNull: false },
-    createdAt: { type: DataTypes.DATE },
-    updatedAt: { type: DataTypes.DATE },
     numTel: { type: DataTypes.CHAR(10), allowNull: false },
     correo: { type: DataTypes.STRING(45), allowNull: false },
     numSerieEquipo: { type: DataTypes.STRING(45) },
     marcaEquipo: { type: DataTypes.STRING(20), allowNull: false },
     razonEntrada: { type: DataTypes.TEXT("tiny"), allowNull: false },
     idUsuario: { type: DataTypes.INTEGER, allowNull: false },
+    createdAt: { type: DataTypes.DATE },
+    updatedAt: { type: DataTypes.DATE },
   },
   { sequelize, tableName: "cola_mantenimiento", freezeTableName: true }
 );
@@ -71,26 +70,6 @@ Usuarios.init(
         }
       },
     },
-  }
-);
-
-MantenimientoProcedimiento.init(
-  {
-    idMantenimiento: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      references: { model: ColaMantenimiento, key: "id" },
-    },
-    idProcedimiento: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      references: { model: Procedimiento, key: "id" },
-    },
-  },
-  {
-    sequelize,
-    tableName: "mantenimiento_has_procedimientos",
-    timestamps: false,
   }
 );
 

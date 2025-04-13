@@ -3,15 +3,26 @@ import ControllerBuilder from "../utils/builders/controllerBuilder";
 import { z } from "zod";
 
 const querySchema = z.object({
-  id: z.string().uuid().optional(),
+  estatus: z.enum(["en_cola", "terminado", "terminado_entregado"]),
 });
 
 export default defineEventHandler(async (event) => {
   const controller = new ControllerBuilder();
+  const query = await getValidatedQuery(event, (res) =>
+    querySchema.safeParse(res)
+  );
 
+  if (!query.success) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "query invalida",
+      data: query.error.errors.flat(),
+    });
+  }
   const response = await controller
     .setModel(ColaMantenimiento)
-    .setWhereFilters({ estatus: "en_cola" })
+    .setWhereFilters({ estatus: query.data.estatus })
+    .setOrderFilters([["createdAt", "DESC"]])
     .setIncludedModels([{ model: Procedimiento, as: "procedimientos" }])
     .getModelResult()
     .getAll()

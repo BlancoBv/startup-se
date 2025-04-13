@@ -4,9 +4,9 @@ main {
   @apply p-4;
 }
 
-:root{
+/* :root{
   @apply bg-base-200;
-}
+} */
 
 th[data-pc-section="headercell"] div {
   display: flex;

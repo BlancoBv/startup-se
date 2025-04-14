@@ -1,107 +1,25 @@
-<!-- <script setup lang="ts">
-const uuidLength = [8, 4, 4, 4, 12]
-const completeUUID = ref<string>("")
-
-const handleInput = (ev: Event, fieldIndex: number) => {
-
-    const length = uuidLength[fieldIndex]
-    const value = completeUUID.value.slice(0, length + 1)
-
-    completeUUID.value = ev.target.value
-
-    console.log({ value, length });
-
-    if (value.length === length) {
-        nextTick();
-        ev.target?.nextSibling.focus()
-    }
-}
-const getValue = (fieldIndex: number) => (
-
-    completeUUID.value.slice(0, 8 + 1)
-)
-</script>
-
-<template>
-    <div class="hero min-h-screen">
-        <div class="hero-content flex-col lg:flex-row-reverse">
-            <div class="text-center lg:text-left">
-                <h1 class="text-5xl font-bold">Consultar estatus</h1>
-                <p class="py-6">
-                    Para continuar ingresa el folio proporcionado a tu correo electronico. Dicho folio consta de 36
-                    caracteres, por ejemplo: <span class="italic text-info ">73644905-b6f5-43cf-9b69-2d13135b6f99</span>
-                </p>
-            </div>
-            <div class="card bg-base-200 w-full max-w-sm shrink-0 shadow-2xl">
-                <div class="card-body">
-                    <fieldset class="fieldset">
-
-                        <input class="input" type="text" @input="handleInput($event, 0)" minlength="1" maxlength="8"
-                            :value="getValue(0)">
-                        <input class="input" type="text" @input="">
-                        <button class="btn btn-neutral mt-4">Login</button>
-                    </fieldset>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
- -->
-<!-- <script setup lang="ts">
-const sectionLengths = [8, 4, 4, 4, 12];
-const uuidParts = ref<string[]>(Array(sectionLengths.length).fill(''));
-const inputRefs = ref<HTMLInputElement[]>([]);
-
-const fullUUID = computed(() =>
-    uuidParts.value.map((part, i) => (i < sectionLengths.length - 1 ? part + '-' : part)).join('').slice(0, 36)
-);
-
-const { data, execute } = useFetch(`/api/cola-mantenimiento/${fullUUID.value}`, { immediate: false, watch: false })
-
-
-
-function autoMove(index: number, maxLength: number) {
-    if (uuidParts.value[index].length === maxLength && index < sectionLengths.length - 1) {
-        nextTick(() => {
-            inputRefs.value[index + 1]?.focus();
-        });
-    }
-}
-
-
-</script>
-<template>
-    {{ data }}
-    <div class="max-w-xl mx-auto p-6 rounded-xl shadow space-y-6">
-        <h2 class="text-2xl font-bold">Ingresar UUID</h2>
-        {{ uuidParts }}
-
-        <form @submit.prevent="execute()" class="fieldset">
-            <div class="flex flex-wrap gap-2">
-                <input v-for="(len, i) in sectionLengths" :key="i" v-model="uuidParts[i]" :maxlength="len"
-                    :placeholder="`${len} hex`" class="input" :style="{ width: `${len * 10 + 20}px` }"
-                    @input="autoMove(i, len)" :ref="(el) => { inputRefs[i] = (el as HTMLInputElement) }" />
-            </div>
-
-            <p class="text-sm text-gray-500">UUID completo: {{ fullUUID }}</p>
-
-            <button type="submit"
-                class="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition">
-                Enviar UUID
-            </button>
-        </form>
-    </div>
-</template> -->
-
 <script setup lang="ts">
+import { toast, type ToastContainerOptions } from "vue3-toastify"
 const UUID_SECTION_LENGTH = [8, 4, 4, 4, 12]
 const UUID_REFS = ref<HTMLInputElement[]>([])
 const UUID = useState(() => ["", "", "", "", ""])
+const infoContainer = useTemplateRef("info-container")
+const formulario = useTemplateRef("formulario")
 
-const fullUUID = computed(() => UUID.value.join("-"))
 
-const { data, execute, status } = useFetch(`/api/cola-mantenimiento/${fullUUID.value}`, { immediate: false, watch: false })
+const fullUUID = computed(() => { return "/api/cola-mantenimiento/" + UUID.value.join("-") })
 
+const { data, execute, status } = useFetch(/* `/api/cola-mantenimiento/${fullUUID.value}` */fullUUID, {
+    immediate: false, watch: false, onResponseError() {
+        toast('No se encontró ninguna coincidencia, intenta de nuevo.', { type: 'error' } as ToastContainerOptions)
+    }, onResponse(res) {
+        if (res.response.status === 200) {
+            UUID.value = ["", "", "", "", ""]
+            formulario.value?.reset()
+        }
+
+    }
+})
 
 const handleInput = (ev: Event, index: number) => {
     const length = UUID_SECTION_LENGTH[index]
@@ -112,9 +30,17 @@ const handleInput = (ev: Event, index: number) => {
     }
 
 }
+
+watch(status, async () => {
+    if (status.value === 'success') {
+        await nextTick()
+        infoContainer.value?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" })
+    }
+
+})
 </script>
 <template>
-
+    {{ fullUUID }}
     <div class="hero bg-base-200 min-h-screen">
         <div class="hero-content flex-col lg:flex-row-reverse">
             <div class="text-center lg:text-left">
@@ -128,7 +54,7 @@ const handleInput = (ev: Event, index: number) => {
                 </div>
             </div>
             <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                <form class="card-body">
+                <form ref="formulario" class="card-body" @submit.prevent="execute()">
                     <fieldset class="fieldset w-xs">
                         <template v-for="(len, index) in UUID_SECTION_LENGTH">
                             <label class="floating-label">
@@ -143,17 +69,30 @@ const handleInput = (ev: Event, index: number) => {
                             </label>
                         </template>
                         <Button btn-type="submit" class-name="btn-primary" :is-pending="status === 'pending'">
-                            <Icon name="mdi:search" size="2em" />
-                            Buscar
+                            <Icon name="mdi:search" size="2em" /> Buscar
                         </Button>
                     </fieldset>
                 </form>
             </div>
         </div>
     </div>
-    <main>
+    <Transition>
+        <main v-if="status === 'success'" ref="info-container" class="min-h-screen">
+            {{ data }}
 
-    </main>
-
+        </main>
+    </Transition>
 
 </template>
+<style>
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
+</style>

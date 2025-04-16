@@ -11,52 +11,46 @@ const card1Motion = useMotionProperties(card1Ref)
 watchEffect(() => {
     card1Motion.transform.translateZ = 0 - Math.min(y.value * 0.1, 40)
     card1Motion.transform.rotateZ = Math.min((y.value * 5) / height.value, 1)
+    card1Motion.style.backdropFilter = `blur(${y.value}px)`
 
 
-    pcMotion.transform.translateZ = 200 - Math.min((y.value * 0.3))
-    /* Math.min(y.value / height.value, 0.1) */
+    pcMotion.transform.translateZ = 0 - Math.min((y.value * 0.3), 200)
+    handymanMotion.transform.translateZ = 0 - Math.min((y.value * 0.2), 200)
 
 })
 </script>
 
 <template>
-    <div class="relative p-10 overflow-clip">
-        <div
-            class=" sticky top-5 h-screen z-10 snap-start transform-3d perspective-normal transform-gpu overflow-visible">
-            <div v-motion ref="card-1" :initial="{
-                opacity: 0, rotateZ: 0, scale: 1, transition: {
-                    type: 'spring',
-                    stiffness: 250,
-                    damping: 25,
-                    mass: 0.5,
-                    delay: 200
-                }
-            }" :visible="{
-                opacity: 1
-            }" class="mockup-window border bg-base-200 p-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 place-content-start place-items-center">
-                    <div>
-                        <h1 v-motion-pop-visible class="text-4xl md:text-6xl lg:text-8xl font-extrabold" :delay="200">
-                            <span>Systems</span>
-                            <br>
-                            <span>Engineers</span>
-                        </h1>
+    <div class="p-10 transform-3d perspective-normal transform-gpu overflow-clip">
+        <div v-motion ref="card-1"
+            class="mockup-window border bg-primary/80 text-primary-content p-20 sticky top-0 mb-96">
+            <div class="grid grid-cols-1 md:grid-cols-2 place-content-start place-items-center">
+                <div>
+                    <h1 v-motion-pop-visible class="text-4xl md:text-6xl lg:text-8xl font-extrabold" :delay="200">
+                        <span>Systems</span>
                         <br>
-                        <p v-motion-pop-visible :delay="400" class="lg:text-2xl">
-                            Mantenimiento total, rendimiento óptimo para tu equipo de cómputo.
-                        </p>
-                    </div>
-                    <div class="relative size-96 transform-3d perspective-normal transform-gpu">
-                        <img v-motion ref="handyman" src="/img/handyman.webp" alt="Técnico" class="absolute">
-                        <img v-motion ref="pc" src="/img/pc.webp" alt="PC" class="absolute ">
-                    </div>
+                        <span>Engineers</span>
+                    </h1>
+                    <br>
+                    <p v-motion-pop-visible :delay="400" class="lg:text-2xl text-balance">
+                        Mantenimiento total, rendimiento óptimo para tu equipo de cómputo.
+                    </p>
+                </div>
+                <div class="relative size-60 md:size-96 transform-3d perspective-normal  transform-gpu">
+                    <img v-motion ref="handyman" src="/img/handyman.webp" alt="Técnico"
+                        class="absolute drop-shadow-2xl/50">
+                    <img v-motion ref="pc" src="/img/pc.webp" alt="PC" class="absolute drop-shadow-sm/50">
                 </div>
             </div>
         </div>
+        <!--         <div class=" sticky top-5 h-screen z-10 overflow-visible">
+
+        </div> -->
 
         <!-- Slide 2 -->
-        <div v-motion :initial="{ opacity: 0, rotateZ: 0, x: 0 }" :visible="{
+        <div v-motion :initial="{ opacity: 0, rotateZ: 0, x: 0, translateZ: 100 }" :visible="{
             opacity: 1, rotateZ: 0.8, x: 10,
+            translateZ: 0,
             transition: {
                 type: 'spring',
                 stiffness: 250,
@@ -64,10 +58,11 @@ watchEffect(() => {
                 mass: 0.5,
                 delay: 200
             },
-        }" class="mockup-window border sticky top-10 bg-neutral p-4 z-20 snap-start">
+        }" class="mockup-window border sticky top-60 bg-neutral/80 backdrop-blur-xs p-10 z-20">
 
             <div class="flex flex-col gap-4">
-                <h1 v-motion-pop-visible :delay="200" class="text-6xl font-extrabold text-neutral-content">Te
+                <h1 v-motion-pop-visible :delay="200"
+                    class="text-4xl md:text-6xl lg:text-8xl font-extrabold text-neutral-content">Te
                     ofrecemos:</h1>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div v-motion-pop-visible :delay="200" class="card bg-base-100 w-full shadow-sm">

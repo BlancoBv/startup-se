@@ -160,7 +160,7 @@ class InternalModel<T extends SequelizeModel> {
     this._transaction = transaction;
   }
 
-  public async getOne(): Promise<Pick<this, "toRawJSON">> {
+  public async getOne(): Promise<Pick<this, "toRawJSON" | "raw">> {
     const response = await this._model.findOne({
       where: this.whereFilters,
       include: this.includedModels,
@@ -240,5 +240,8 @@ class InternalModel<T extends SequelizeModel> {
         ? InferAttributes<K[P][number]>[]
         : {};
     };
+  }
+  public raw() {
+    return this.response as T;
   }
 }

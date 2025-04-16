@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tailwindcss-animated";
 @plugin "daisyui" {
     themes: synthwave --default;
 }
@@ -39,5 +38,4 @@
     --noise: 0;
   }
   
-@plugin "tailwindcss-animated";
 @plugin "@tailwindcss/typography";

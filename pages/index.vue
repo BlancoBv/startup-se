@@ -56,7 +56,7 @@ onMounted(() => {
             <div class="flex flex-col gap-4">
                 <h1 v-motion-pop-visible :delay="200" class="text-6xl font-extrabold text-secondary-content">Te
                     ofrecemos:</h1>
-                <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div v-motion-pop-visible :delay="200" class="card bg-base-100 w-full shadow-sm">
                         <div class="card-body">
                             <h2 class="card-title">Mantenimiento</h2>
@@ -92,7 +92,7 @@ onMounted(() => {
                             <h2 class="card-title">Actualización e instalación de software</h2>
                             <p>Sí necesitas la paquetería de Office o similares.</p>
                         </div>
-                        <figure class="bg-primary">
+                        <figure>
                             <img src="/img/software.webp" alt="Software" class="" />
                         </figure>
                     </div>

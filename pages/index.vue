@@ -126,9 +126,15 @@ onMounted(() => {
 
         </div> -->
     </div>
-    <div class="sticky top-0 h-[2000px] bg-neutral text-white p-4 z-30 snap-start">
-        <h1 class="text-3xl font-bold sticky top-0">Slide 3</h1>
-        <p>Last section stacked on top</p>
+    <div class="relative h-[2000px] bg-neutral text-white p-4 z-30 flex flex-col gap-4">
+
+        <h1 class="text-6xl font-extrabold sticky top-0 snap-start" v-motion-slide-visible-left :delay="200">
+            Contactanos
+        </h1>
+        <div class="grid grid-cols-2 gap-4">
+
+        </div>
+
     </div>
 
 </template>

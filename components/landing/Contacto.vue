@@ -1,13 +1,13 @@
 <template>
     <div
-        class="sticky top-0 bg-base-200 h-full p-10 z-30 grid grid-cols-1 lg:grid-cols-3 place-items-center gap-4 mb-[100vh]">
+        class="sticky top-0 bg-base-200 h-full p-10 z-30 grid grid-cols-1 lg:grid-cols-2 place-items-center gap-4 mb-96">
 
-        <h1 class="text-6xl font-light text-center lg:text-left" v-motion-slide-visible-left :delay="200">
+        <h1 class="text-4xl md:text-6xl font-light text-center lg:text-left" v-motion-slide-visible-left :delay="200">
             <span>¿Necesitas ayuda?</span>
             <br>
             <span class="text-error">Contáctanos</span>
         </h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-center col-span-2" v-motion-roll-visible-left>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-center" v-motion-roll-visible-left>
             <div class="card bg-base-100 image-full max-w-96 h-60 shadow-sm group">
                 <figure>
                     <img src="/img/bal.webp" class="object-cover w-full group-hover:scale-120 ease-in-out duration-150"

@@ -40,8 +40,7 @@ watch(status, async () => {
 })
 </script>
 <template>
-    {{ fullUUID }}
-    <div class="hero bg-base-200 min-h-screen">
+    <div class="hero bg-base-200 h-full">
         <div class="hero-content flex-col lg:flex-row-reverse">
             <div class="text-center lg:text-left">
                 <h1 class="text-5xl font-bold">Consulta de estatus</h1>
